@@ -1,9 +1,4 @@
 <?php
-// print_r($_POST);
-
-// echo "Name : " . $_POST['visitor_name'] . "<br>";
-// echo "Email : " . $_POST['visitor_email'] . "<br>";
-// echo "Message : " . $_POST['visitor_message'] . "<br>";
 
 if (empty($_POST['visitor_name'])) {
     echo "Where is your name ?";
@@ -18,5 +13,18 @@ elseif (empty($_POST['visitor_message'])) {
     echo "Where is your message ?";
 }
 else {
-    echo "Thanks for your submission !!";
+    $visitor_name = $_POST['visitor_name'];
+    $visitor_email = $_POST['visitor_email'];
+    $visitor_message = $_POST['visitor_message'];
+
+    define("HOSTNAME", "localhost");
+    define("USERNAME", "root");
+    define("PASSWORD", "");
+    define("DATABASE_NAME", "jaguar");
+
+    $db_connect = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE_NAME); // connecting the database
+    $insert_query = "INSERT INTO contact_messages (visitor_name, visitor_email, visitor_message) VALUES ('$visitor_name', '$visitor_email', '$visitor_message')"; // insert query
+    mysqli_query($db_connect, $insert_query);
+
+    header("location: contact.php");
 }
