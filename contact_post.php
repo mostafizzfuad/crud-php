@@ -21,5 +21,5 @@ else {
     $insert_query = "INSERT INTO contact_messages (visitor_name, visitor_email, visitor_message) VALUES ('$visitor_name', '$visitor_email', '$visitor_message')"; // insert query
     mysqli_query($db_connect, $insert_query);
 
-    header("location: contact_view.php");
+    header("location: contact.php");
 }

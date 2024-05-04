@@ -5,16 +5,39 @@ require "./includes/db.php";
 $read_query = "SELECT * FROM contact_messages";
 $datas = mysqli_query($db_connect, $read_query); // datas from database
 
-// mysqli_fetch_assoc($datas);
+// total count
+$total_count_query = "SELECT COUNT(*) AS total_message FROM contact_messages";
+$total_count_from_db = mysqli_query($db_connect, $total_count_query);
+$total_messages = mysqli_fetch_assoc($total_count_from_db);
+// print_r($total_messages['total_message']);
 
-// foreach ($datas as $data) {
-//     print_r($data['visitor_name']);
-// }
+// unread count
+$unread_count_query = "SELECT COUNT(*) AS unread_message FROM contact_messages WHERE status = 1";
+$unread_count_from_db = mysqli_query($db_connect, $unread_count_query);
+$unread_messages = mysqli_fetch_assoc($unread_count_from_db);
+// print_r($unread_messages['unread_message']);
+
+// read count
+$read_count_query = "SELECT COUNT(*) AS read_message FROM contact_messages WHERE status = 2";
+$read_count_from_db = mysqli_query($db_connect, $read_count_query);
+$read_messages = mysqli_fetch_assoc($read_count_from_db);
+// print_r($read_messages['read_message']);
+
 ?>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row mt-4">
+        <div class="col-md-4 text-center">
+            <h2>Total: <?= $total_messages['total_message'] ?></h2>
+        </div>
+        <div class="col-md-4 text-center">
+            <h2>Unread: <?= $unread_messages['unread_message'] ?></h2>
+        </div>
+        <div class="col-md-4 text-center">
+            <h2>Read: <?= $read_messages['read_message'] ?></h2>
+        </div>
+
+        <div class="col-md-12 mt-4">
             <!-- card -->
             <div class="card text-white">
                 <div class="card-header bg-primary text-center">
@@ -46,11 +69,10 @@ $datas = mysqli_query($db_connect, $read_query); // datas from database
                                     <td><?= $data['visitor_email'] ?></td>
                                     <td><?= $data['visitor_message'] ?></td>
                                     <td>
-                                        <?php
-                                        if ($data['status'] == 1) :
-                                        ?>
+                                        <?php if ($data['status'] == 1) : ?>
                                             <a href="./contact_read.php?id=<?= $data['id'] ?>" class="btn btn-success btn-sm">Mark As Read</a>
                                         <?php endif; ?>
+                                        <a href="./contact_delete.php?id=<?= $data['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
