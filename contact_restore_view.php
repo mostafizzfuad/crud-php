@@ -38,7 +38,7 @@ $datas = mysqli_query($db_connect, $read_query); // datas from database
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                             <a href="./contact_restore.php?id=<?= $data['id'] ?>" type="button" class="btn btn-success btn-sm">Restore</a>
-                                            <a href="" type="button" class="btn btn-danger btn-sm">Delete</a>
+                                            <a href="./contact_hard_delete.php?id=<?= $data['id'] ?>" type="button" class="btn btn-danger btn-sm">Delete</a>
                                         </div>
                                     </td>
                                 </tr>
