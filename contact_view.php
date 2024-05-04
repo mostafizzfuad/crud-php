@@ -93,6 +93,7 @@ $softDelete_messages = mysqli_fetch_assoc($softDelete_count_from_db);
                             <?php endif; ?>
                         </tbody>
                     </table>
+                    <a href="./contact_restore_view.php" class="btn btn-info btn-sm">Click to Restore</a>
                 </div>
             </div>
         </div>
